@@ -40,20 +40,7 @@ class BlocSuggester extends GeneralizingAstVisitor
   dynamic visitExpression(Expression node) {}
 
   @override
-  void visitConstructorDeclaration(ConstructorDeclaration node) {
-    if (node.factoryKeyword == null) {
-      return;
-    }
-
-    final body = node.body.toSource();
-    if (!body.startsWith(RegExp(r'\{if\s?\(json'))) {
-      final updatedText = '{\nif (json == null) {\n'
-          'return null;\n'
-          '}'
-          ' ${body.replaceFirst(RegExp(r'^=> '), '\nreturn ')}\n}';
-      yieldPatch(node.body.offset, node.body.endToken.offset + 1, updatedText);
-    }
-  }
+  void visitConstructorDeclaration(ConstructorDeclaration node) {}
 
   @override
   void visitDeclaration(Declaration node) {}
